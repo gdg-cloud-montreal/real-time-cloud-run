@@ -2,14 +2,14 @@ apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   name: jfrog-service
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
 spec:
+  template:
     spec:
       containerConcurrency: 1
       containers:
-      - image: gcr.io/swampup2021/demo-service@sha256:232d3b31c24344c376981a0c4c4396c7f49e70a4b24b2c86d291ac9a43c4a067
+      - image: gcr.io/jfrog2021/demo-service:latest
         ports:
         - containerPort: 8080
-        resources:
-          limits:
-            cpu: 1000m
-            memory: 512Mi

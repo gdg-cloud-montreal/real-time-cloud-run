@@ -24,5 +24,17 @@ gcloud builds submit --no-source --substitutions _DEMO_USER=$(whoami)
 4. Deploy to Cloud Run:
 
 ```
-gcloud alpha run services replace jfrog-service.yaml --region=us-central1
+gcloud run services replace jfrog-service.yaml --region=us-central1 --platform=managed
 ```
+
+5. Allow all traffic to service (demo)
+
+```
+gcloud run services set-iam-policy jfrog-service policy.yaml --region=us-central1 --platform=managed
+``` 
+
+
+or
+```
+gcloud run services add-iam-policy-binding jfrog-service --member="allUsers" --role="roles/run.invoker" --region=us-central1 --platform=managed
+``` 
